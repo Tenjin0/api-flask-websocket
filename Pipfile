@@ -11,6 +11,7 @@ flask = "*"
 eventlet = "*"
 numpy = "*"
 matplotlib = "*"
+opencv-python = "*"
 
 [requires]
 python_version = "3.6"
