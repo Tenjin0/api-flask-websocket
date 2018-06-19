@@ -8,4 +8,4 @@ img = cv2.imread('static/images/watch.jpg', cv2.IMREAD_GRAYSCALE)
 @socketio.on('connect')
 def connect_handler():
     encoded_string = base64.b64encode(img)
-    emit('camera', {'meta': encoded_string})
+    emit('camera', {'buffer': encoded_string})
