@@ -12,6 +12,7 @@ eventlet = "*"
 numpy = "*"
 matplotlib = "*"
 opencv-python = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.6"

@@ -44,7 +44,5 @@ socket.on("camera", function(msg) {
     if (typeof msg.text === "string") {
         console.log(atob(msg.text));
     }
-    camera.src =
-        "data:image/jpg;base64," +
-        (typeof msg.buffer === "string" ? msg.buffer : b64(msg.buffer)); // camera.src = img.src;
-});
+    camera.src = msg.buffer;
+})
