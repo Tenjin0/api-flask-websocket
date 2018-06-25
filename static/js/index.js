@@ -40,9 +40,10 @@ socket.on("camera", function(msg) {
     //     context.drawImage(img, 0, 0, canvas.width, canvas.height);
     //     console.log("load");
     // };
-    console.log(msg.buffer);
+    console.log(msg.text);
     if (typeof msg.text === "string") {
         console.log(atob(msg.text));
+    } else {
     }
     camera.src =
         "data:image/jpg;base64," +

@@ -1,26 +1,31 @@
 import cv2
+# from PIL import Image
 import base64
 from flask_socketio import emit
 from app import socketio
-import numpy as np
-# img = cv2.imread('static/images/watch.jpg', cv2.IMREAD_GRAYSCALE)
+try:
+    import cStringIO as io
+except ImportError:
+    import io
+
+
 camera = cv2.VideoCapture(0)
 img = cv2.imread('static/images/watch.jpg')
-# img = np.load(img)
 
-# with open('static/images/watch.jpg', "rb") as image_file:
-#     print(type(image_file.read()))
+"""Sends camera images in an infinite loop."""
 
-img = camera.read()[1]
-cnt = cv2.imencode('.jpg', img)
-print(type(cnt))
-print(cnt[1])
-encoded_string = base64.encodestring(cnt[1][0])
-# encoded_text = base64.b64encode(b'toto')
-encoded_text = base64.b64encode(b'toto').decode('ascii')
+_, frame = camera.read()
+retval, buffer = cv2.imencode('.jpg', frame)
+# With Pillow
+# sio = io.StringIO()
+# img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+# img.save(sio, "JPEG")
+# sio.getValue()
+
+encoded_text = "toto"
 
 @socketio.on('connect')
 def connect_handler():
     # encoded_string = base64.b64encode(img)
     # encoded_string = base64.encodestring(encoded_string)
-    emit('camera', {'text': encoded_text, 'buffer': encoded_string})
+    emit('camera', {'text':  base64.b64encode(encoded_text), 'buffer': base64.b64encode(buffer)})
